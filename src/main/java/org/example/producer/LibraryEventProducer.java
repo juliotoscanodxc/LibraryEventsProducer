@@ -31,7 +31,7 @@ public class LibraryEventProducer {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Value("${spring.kafka.producer.topic.name}")
+    @Value("${spring.kafka.template.default-topic}")
     private String topic;
 
     // asynchronous

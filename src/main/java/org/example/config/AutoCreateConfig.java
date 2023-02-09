@@ -11,7 +11,7 @@ import org.springframework.kafka.config.TopicBuilder;
 @Profile("local")
 public class AutoCreateConfig {
 
-    @Value("${spring.kafka.producer.topic.name}")
+    @Value("${spring.kafka.template.default-topic}")
     private String topic;
 
     @Bean

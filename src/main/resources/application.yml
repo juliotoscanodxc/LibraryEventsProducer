@@ -1,1 +1,56 @@
-spring.kafka.producer.topic.name: "library-events"
+spring:
+  profiles:
+    active: local
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  kafka:
+    template:
+      default-topic: library-events
+    producer:
+      bootstrap-server: localhost:9092,localhost:9093,localhost:9094
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        acks: all
+        retries: 10
+        retry.backoff.ms: 1000
+      admin:
+        properties:
+          bootstrap.servers: localhost:9092,localhost:9093,localhost:9094
+---
+spring:
+  config:
+    activate:
+      on-profile: non-prod
+  kafka:
+    template:
+      default-topic: library-events
+    producer:
+      bootstrap-server: broker1:9092,broker2:9093,broker3:9094
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      ssl:
+        trust-store-location:
+        trust-store-password:
+        key-store-location:
+        key-store-password:
+      properties:
+        acks: all
+        retries: 10
+        retry.backoff.ms: 1000
+        security:
+          protocol: SSL
+        ssl.endpoint.identification.algorithm:
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  kafka:
+    producer:
+      bootstrap-servers: prod-broker1:9092,prod-broker2:9093,prod-broker3:9094
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer

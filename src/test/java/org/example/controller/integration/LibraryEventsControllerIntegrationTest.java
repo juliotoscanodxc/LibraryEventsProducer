@@ -1,4 +1,4 @@
-package org.example.controller;
+package org.example.controller.integration;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
